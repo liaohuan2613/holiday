@@ -16,7 +16,7 @@ public interface BaseService {
     //查询所有评论对象
     public Map<String, Object> findBeanById(String sql);
 
-    public void updateBean(String sql);
+    public void updateBeans(String sql);
 
     public void exeSql(String sql);
 

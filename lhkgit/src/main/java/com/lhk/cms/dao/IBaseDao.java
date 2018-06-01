@@ -1,11 +1,9 @@
 package com.lhk.cms.dao;
 
-import com.lhk.cms.bean.Comment;
-
 import java.util.List;
 import java.util.Map;
 
-public interface BaseDao {
+public interface IBaseDao {
     //保存评论对象
     public void saveBean(String sql);
 
@@ -18,7 +16,7 @@ public interface BaseDao {
     //查询所有评论对象
     public Map<String, Object> findBeanById(String sql);
 
-    public void updateBean(String sql);
+    public void updateBeans(String sql);
 
     public void exeSql(String sql);
 

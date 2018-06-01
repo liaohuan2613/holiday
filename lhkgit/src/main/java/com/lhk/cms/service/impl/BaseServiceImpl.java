@@ -1,6 +1,6 @@
 package com.lhk.cms.service.impl;
 
-import com.lhk.cms.dao.BaseDao;
+import com.lhk.cms.dao.IBaseDao;
 import com.lhk.cms.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class BaseServiceImpl implements BaseService {
 
     @Autowired
-    BaseDao baseDao;
+    IBaseDao baseDao;
 
     @Override
     public void saveBean(String sql) {
@@ -35,8 +35,8 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public void updateBean(String sql) {
-        baseDao.updateBean(sql);
+    public void updateBeans(String sql) {
+        baseDao.updateBeans(sql);
     }
 
     @Override
