@@ -2,11 +2,15 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/lhkgit" />
+    <file type="web" url="file://$PROJECT_DIR$/SecKill" />
+    <file type="web" url="file://$PROJECT_DIR$/SecKill-master" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/lhkgit/pom.xml" />
+        <option value="$PROJECT_DIR$/SecKill-master/pom.xml" />
+        <option value="$PROJECT_DIR$/SecKill/pom.xml" />
       </list>
     </option>
   </component>

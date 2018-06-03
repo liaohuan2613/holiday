@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SecKill/SecKill.iml" filepath="$PROJECT_DIR$/SecKill/SecKill.iml" />
       <module fileurl="file://$PROJECT_DIR$/holiday.iml" filepath="$PROJECT_DIR$/holiday.iml" />
       <module fileurl="file://$PROJECT_DIR$/lhkgit/lhkgit.iml" filepath="$PROJECT_DIR$/lhkgit/lhkgit.iml" />
     </modules>

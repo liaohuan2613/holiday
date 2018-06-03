@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="lhkgit" />
+        <module name="SecKill" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="lhkgit" target="1.7" />
+      <module name="SecKill" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
