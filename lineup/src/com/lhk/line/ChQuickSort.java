@@ -32,9 +32,9 @@ public class ChQuickSort {
 
 	public static int partition(int num[], int low, int height) {
 		// 基本上就是快速排序的格式，如果把low和height变成i和j就能完成成为快速排序的形式了
-		int privotKey = num[low];
+		int pivotKey = num[low];
 		while (low < height) {
-			while (low < height && num[height] > privotKey) {
+			while (low < height && num[height] > pivotKey) {
 				height--;
 			}
 			if (low < height) {
@@ -43,7 +43,7 @@ public class ChQuickSort {
 				num[low] = temp;
 				low++;
 			}
-			while (low < height && num[low] < privotKey) {
+			while (low < height && num[low] < pivotKey) {
 				low++;
 			}
 			if (low < height) {
@@ -55,7 +55,7 @@ public class ChQuickSort {
 		}
 		// 由于这个是改进版，快速排序的目的只是生成基本有序表
 		// 所以其实不用这句话也是可以的，因为后面的简单插入排序是可以完善它的
-		num[low] = privotKey;
+		num[low] = pivotKey;
 		return low;
 	}
 }

@@ -2,7 +2,7 @@ package com.lhk.line;
 
 public class HeapAdjustSort {
 	public static int[] sort(int[] num, int n) {
-		num = creatHeap(num, n);
+		num = createHeap(num, n);
 		for (int i = n - 1; i > 0; i--) {
 			// 将上一个堆中的最小值也就是顶点的值和最后的一个值进行交换
 			// 并且起到打乱堆的效果，并重新找到新堆的最小值，当然是除了最后一个节点的
@@ -15,7 +15,7 @@ public class HeapAdjustSort {
 	}
 
 	// 构建堆排列方式是父节点一定比子节点小，因此顶点一定是最小的值
-	private static int[] creatHeap(int[] num, int n) {
+	private static int[] createHeap(int[] num, int n) {
 		// 除以2是为了恰好在最后的一度子节点的父节点处
 		for (int i = (n - 1) / 2; i >= 0; i--) {
 			num = heapAdjust(num, i, n);
