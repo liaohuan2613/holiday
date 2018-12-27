@@ -9,7 +9,7 @@ public class HeapAdjustSort {
 			int x = num[0];
 			num[0] = num[i];
 			num[i] = x;
-			num = heapAdjust(num, 0, i);
+			heapAdjust(num, 0, i);
 		}
 		return num;
 	}
@@ -18,7 +18,7 @@ public class HeapAdjustSort {
 	private static int[] createHeap(int[] num, int n) {
 		// 除以2是为了恰好在最后的一度子节点的父节点处
 		for (int i = (n - 1) / 2; i >= 0; i--) {
-			num = heapAdjust(num, i, n);
+			heapAdjust(num, i, n);
 		}
 		return num;
 	}
