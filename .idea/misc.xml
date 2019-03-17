@@ -11,10 +11,14 @@
         <option value="$PROJECT_DIR$/lhkgit/pom.xml" />
         <option value="$PROJECT_DIR$/SecKill-master/pom.xml" />
         <option value="$PROJECT_DIR$/SecKill/pom.xml" />
+        <option value="$PROJECT_DIR$/lintcode/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-test/pom.xml" />
+        <option value="$PROJECT_DIR$/word-count/pom.xml" />
+        <option value="$PROJECT_DIR$/api-test/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
