@@ -1,8 +1,14 @@
-import java.util.Arrays;
+package com.lhk.kafka;
+
+import java.lang.reflect.Type;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -13,13 +19,11 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 public class ConsumerDemo {
 
-    static Gson gson = new Gson();
-
     public static void main(String[] args) {
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "39.96.24.162:9092");
-        properties.put("group.id", "xg-owl-article");
-        properties.put("enable.auto.commit", "false");
+        properties.put("bootstrap.servers", "127.0.0.1:9092");
+        properties.put("group.id", "test-group");
+        properties.put("enable.auto.commit", "true");
         properties.put("auto.commit.interval.ms", "1000");
         properties.put("auto.offset.reset", "latest");
         properties.put("session.timeout.ms", "30000");
@@ -27,16 +31,16 @@ public class ConsumerDemo {
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
-        kafkaConsumer.subscribe(Collections.singletonList("article_sq"));
-        while (true) {
-            ConsumerRecords<String, String> records = kafkaConsumer.poll(1000);
-            for (ConsumerRecord<String, String> record : records) {
-                System.out.println("-----------------");
-                System.out.printf("offset = %d, value = %s", record.offset(), record.value());
-                System.out.println();
+        kafkaConsumer.subscribe(Collections.singletonList("test"));
+        try {
+            while (true) {
+                ConsumerRecords<String, String> records = kafkaConsumer.poll(1000);
+                for (ConsumerRecord<String, String> record : records) {
+                    System.out.println(String.format("Consume partition:%d offset:%d value:%s", record.partition(), record.offset(), record.value()));
+                }
             }
-            kafkaConsumer.commitSync();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }

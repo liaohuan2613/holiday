@@ -1,3 +1,5 @@
+package com.lhk.kafka;
+
 import java.util.*;
 
 public class MapFormatHumpUtil {

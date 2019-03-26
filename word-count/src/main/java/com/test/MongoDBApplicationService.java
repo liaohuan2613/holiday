@@ -1,15 +1,13 @@
 package com.test;
 
-import com.google.gson.reflect.TypeToken;
 import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-import java.io.*;
-import java.lang.reflect.Type;
-import java.time.LocalDate;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SecKill/SecKill.iml" filepath="$PROJECT_DIR$/SecKill/SecKill.iml" />
       <module fileurl="file://$PROJECT_DIR$/api-test/api-test.iml" filepath="$PROJECT_DIR$/api-test/api-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dup-test/dup-test.iml" filepath="$PROJECT_DIR$/dup-test/dup-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/holiday.iml" filepath="$PROJECT_DIR$/holiday.iml" />
       <module fileurl="file://$PROJECT_DIR$/kafka-test/kafka-test.iml" filepath="$PROJECT_DIR$/kafka-test/kafka-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/lhkgit/lhkgit.iml" filepath="$PROJECT_DIR$/lhkgit/lhkgit.iml" />

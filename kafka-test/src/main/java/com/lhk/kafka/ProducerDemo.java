@@ -1,3 +1,5 @@
+package com.lhk.kafka;
+
 import com.google.gson.Gson;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -40,7 +42,7 @@ public class ProducerDemo {
                 respondMap.put("source", "test");
                 i++;
                 String msg = "This is Message " + i;
-                producer.send(new ProducerRecord<>("article", "msgCount", gson.toJson(respondMap)));
+                producer.send(new ProducerRecord<>("article_sq", "msgCount", gson.toJson(respondMap)));
                 System.out.println("Sent:" + msg);
                 Thread.sleep(200);
             }
