@@ -104,7 +104,7 @@ public class MySQLApplicationService {
             try {
 //                conn = DriverManager.getConnection("jdbc:mysql://47.96.26.149:3306/LOG_SOURCE?useUnicode=true&characterEncoding=utf8", "devUser", "password1!");
 //                conn = DriverManager.getConnection("jdbc:mysql://10.104.15.109:3306/HAITONG?useUnicode=true&characterEncoding=utf8", "root", "password!");
-                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:10906/ANXIN?useUnicode=true&characterEncoding=utf8", "root", "password!");
+                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:10906/MINGSHENG?useUnicode=true&characterEncoding=utf8", "root", "password!");
 //                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/log_source?useUnicode=true&characterEncoding=utf8",
 //                        "root", "");
                 System.out.println("[MySQL Client]: MySQL Client create SUCCESS");
@@ -309,33 +309,34 @@ public class MySQLApplicationService {
     }
 
     public static String printTimeliness(Connection conn) {
-        String rsIdInSql = getRsIdInSql(conn);
-        String sql = "select case " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < -1800 then '-.05' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= -1800 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 0 then '-0.5 - 0' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 0 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 1800 then '0 - 0.5' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 1800 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 3600 then '0.5 - 1' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 3600 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 5400 then '1 - 1.5' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 5400 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 7200 then '1.5 - 2' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 7200 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 9000 then '2 - 2.5' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 9000 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 10800 then '2.5 - 3' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 10800 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 12600 then '3 - 3.5' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 12600 " +
-                " and UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) < 14400 then '3.5 - 4' " +
-                " when UNIX_TIMESTAMP(CONTENT_ENT_TIME)-UNIX_TIMESTAMP(CONTENT_PUB_DT) >= 14400 then '4 - 4.5' " +
-                " else 'null' end X,CONTENT_RS_ID,count(*) countNum, CONTENT_RS_ID " +
-                " from log_reader " +
-                " where MSG_TYPE = 'NWS' and CONTENT_OPT_TYP = '0' and CONTENT_RS_ID in (" + rsIdInSql + ")" +
-                " group by X,CONTENT_RS_ID " +
-                " order by CONTENT_RS_ID,X";
+//        String rsIdInSql = getRsIdInSql(conn);
+        String sql = "select case  when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < -1800 then '-.05' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= -1800 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 0 then '-0.5 - 0' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 0 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 1800 then '0 - 0.5' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 1800 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 3600 then '0.5 - 1' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 3600 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 5400 then '1 - 1.5'\n" +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 5400 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 7200 then '1.5 - 2' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 7200 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 9000 then '2 - 2.5' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 9000 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 10800 then '2.5 - 3' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 10800 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 12600 then '3 - 3.5' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 12600 " +
+                "and UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) < 14400 then '3.5 - 4' " +
+                "when UNIX_TIMESTAMP(ENT_DT)-UNIX_TIMESTAMP(PUB_DT) >= 14400 then '4 - 4.5' " +
+                "else 'null' end X,SOURCE,count(*) countNum, SOURCE " +
+                "from POC_NEWS " +
+                "where SOURCE in ('巨潮资讯','新浪财经','证券时报','格隆汇','智通财经','经济通','上海证券报','中国证券报'," +
+                "'生意社','商务部','新华社','证券日报','全景网','国际衍生品智库','99期货','人民日报','中财网','红刊财经','21世纪经济报道'," +
+                "'外汇中心','上交所','卓创资讯','中国政府网','工信部','深交所') " +
+                "group by X,SOURCE " +
+                "order by X";
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
@@ -345,7 +346,7 @@ public class MySQLApplicationService {
                 String x = rs.getString("X");
                 Map<String, Object> map = resultMap.computeIfAbsent(x, k -> new LinkedHashMap<>());
                 int countNum = rs.getInt("countNum");
-                String rsId = rs.getString("CONTENT_RS_ID");
+                String rsId = rs.getString("SOURCE");
                 map.put(rsId, countNum);
                 set.add(rsId);
             }
@@ -855,39 +856,40 @@ public class MySQLApplicationService {
     }
 
     public static void main(String[] args) {
-        String sql = "select * from POC_NEWS_0304 where ID = 'NW201901071021057779'";
-        try {
-            Statement statement = getCollection().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            Map<String, Object> requestMap = new HashMap<>();
-            while (resultSet.next()) {
-                requestMap.put("id", "5c8325734379bd761d31bfc9");
-                requestMap.put("title", "如何做好读书笔记？");
-                requestMap.put("content", "电影推荐：【绿皮书】\\n\\n「世界上有太多孤独的人害怕先>踏出第一步」\\n\\n\\n\\n\\n\\n传统做读书笔记的方法，" +
-                        "大抵上，可以分为三种：\\n\\n\\n\\n\\n\\n\\n\\n1）关键词。记录下关键词和它的出处和来源；\\n\\n2）摘>录。像我们读书时候经常做得那样，" +
-                        "整个句子、段落、知识点，直接抄录下来\\n\\n3）标注。在原文或者摘录的段落旁，记录下自己的思考和总结\\n\\n\\n\\n\\n\\n这三类方法很常规，" +
-                        "也很符合直觉，但你有没有发现，无论采用哪种方法，都会遇到一个问题：\\n\\n\\n\\n\\n\\n当笔记堆积如山时，你要怎么对他们进>行整理分类呢？" +
-                        "\\n\\n\\n\\n\\n\\n尤其当笔记数量达到成千上万条时，这个问题会更明显。\\n\\n\\n\\n\\n\\n要么，就是堆在一边积灰，再也不去翻看它们；要么>，" +
-                        "就是在需要时，根本找不到，甚至根本不记得「自己做过笔记」，笔记白记了。\\n\\n\\n\\n\\n\\n你或许会说，可以给笔记分类。但本质上，" +
-                        "不仅解决不了>问题，还把问题弄得更复杂了。\\n\\n\\n\\n\\n\\n");
-                requestMap.put("source", "中欧基金");
-            }
-            requestMap.put("database", "9");
-            Type mapType = new TypeToken<Map<String, Object>>() {
-            }.getType();
-            String postForObject = restTemplate.postForObject("http://47.96.26.149:5002/api/deduplication", requestMap, String.class);
-            Map<String, Object> map = gson.fromJson(postForObject, mapType);
-            ArticleDuplicationResponse result = gson.fromJson(map.get("result").toString(), ArticleDuplicationResponse.class);
-            System.out.println(result.getDupIds());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String cont = "<p><br/></p><table border=\"0\" cellspacing=\"1\" cellpadding=\"5\" align=\"center\" class=\"cms_autoformat_table\"><tbody><tr><td>品名</td><td>材质</td><td>价格区间</td><td>单位</td><td>涨跌</td><td>产地/牌号</td><td>发布日期</td><td>备注</td></tr><tr><td><br /></td><td>干净</td><td>37400-37600</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>干净通讯线铜米</td><td>-</td><td>44100-44300</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>1#光亮铜线</td><td>通货</td><td>42300-42500</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>电机线</td><td>一级</td><td>39100-39300</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>黄铜大件</td><td>普通</td><td>31500-31700</td><td>元/吨</td><td>300</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>黄铜水箱</td><td>常规</td><td>27300-27500</td><td>元/吨</td><td>300</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr></tbody></table><p class=\"em_media\">（文章来源：全球金属网）</p>";
-        System.out.println(HTMLFormatUtils.filterHtml(cont));
+//        String sql = "select * from POC_NEWS_0304 where ID = 'NW201901071021057779'";
+//        try {
+//            Statement statement = getCollection().createStatement();
+//            ResultSet resultSet = statement.executeQuery(sql);
+//            Map<String, Object> requestMap = new HashMap<>();
+//            while (resultSet.next()) {
+//                requestMap.put("id", "5c8325734379bd761d31bfc9");
+//                requestMap.put("title", "如何做好读书笔记？");
+//                requestMap.put("content", "电影推荐：【绿皮书】\\n\\n「世界上有太多孤独的人害怕先>踏出第一步」\\n\\n\\n\\n\\n\\n传统做读书笔记的方法，" +
+//                        "大抵上，可以分为三种：\\n\\n\\n\\n\\n\\n\\n\\n1）关键词。记录下关键词和它的出处和来源；\\n\\n2）摘>录。像我们读书时候经常做得那样，" +
+//                        "整个句子、段落、知识点，直接抄录下来\\n\\n3）标注。在原文或者摘录的段落旁，记录下自己的思考和总结\\n\\n\\n\\n\\n\\n这三类方法很常规，" +
+//                        "也很符合直觉，但你有没有发现，无论采用哪种方法，都会遇到一个问题：\\n\\n\\n\\n\\n\\n当笔记堆积如山时，你要怎么对他们进>行整理分类呢？" +
+//                        "\\n\\n\\n\\n\\n\\n尤其当笔记数量达到成千上万条时，这个问题会更明显。\\n\\n\\n\\n\\n\\n要么，就是堆在一边积灰，再也不去翻看它们；要么>，" +
+//                        "就是在需要时，根本找不到，甚至根本不记得「自己做过笔记」，笔记白记了。\\n\\n\\n\\n\\n\\n你或许会说，可以给笔记分类。但本质上，" +
+//                        "不仅解决不了>问题，还把问题弄得更复杂了。\\n\\n\\n\\n\\n\\n");
+//                requestMap.put("source", "中欧基金");
+//            }
+//            requestMap.put("database", "9");
+//            Type mapType = new TypeToken<Map<String, Object>>() {
+//            }.getType();
+//            String postForObject = restTemplate.postForObject("http://47.96.26.149:5002/api/deduplication", requestMap, String.class);
+//            Map<String, Object> map = gson.fromJson(postForObject, mapType);
+//            ArticleDuplicationResponse result = gson.fromJson(map.get("result").toString(), ArticleDuplicationResponse.class);
+//            System.out.println(result.getDupIds());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String cont = "<p><br/></p><table border=\"0\" cellspacing=\"1\" cellpadding=\"5\" align=\"center\" class=\"cms_autoformat_table\"><tbody><tr><td>品名</td><td>材质</td><td>价格区间</td><td>单位</td><td>涨跌</td><td>产地/牌号</td><td>发布日期</td><td>备注</td></tr><tr><td><br /></td><td>干净</td><td>37400-37600</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>干净通讯线铜米</td><td>-</td><td>44100-44300</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>1#光亮铜线</td><td>通货</td><td>42300-42500</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>电机线</td><td>一级</td><td>39100-39300</td><td>元/吨</td><td>500</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>黄铜大件</td><td>普通</td><td>31500-31700</td><td>元/吨</td><td>300</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr><tr><td>黄铜水箱</td><td>常规</td><td>27300-27500</td><td>元/吨</td><td>300</td><td>重庆</td><td>2019-01-07</td><td>不含税</td></tr></tbody></table><p class=\"em_media\">（文章来源：全球金属网）</p>";
+//        System.out.println(HTMLFormatUtils.filterHtml(cont));
+//
+//        String parentCode = "C003";
+//        String code = "CLS_10101003;XG_A00002;CLS_10700013;CLS_10700012;CLS_10108003;CLS_10108009;CLS_10108008;CLS_10108007;CLS_10108001;CLS_10108006;CLS_10108002;CLS_10108005;CLS_10108011";
 
-        String parentCode = "C003";
-        String code = "CLS_10101003;XG_A00002;CLS_10700013;CLS_10700012;CLS_10108003;CLS_10108009;CLS_10108008;CLS_10108007;CLS_10108001;CLS_10108006;CLS_10108002;CLS_10108005;CLS_10108011";
-
+        printTimeliness(getCollection());
     }
 
 }
