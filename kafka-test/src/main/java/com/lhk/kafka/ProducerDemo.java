@@ -15,6 +15,7 @@ public class ProducerDemo {
 
     public static void main(String[] args) {
         Properties properties = new Properties();
+        System.setProperty("java.security.auth.login.config", "C:/software/kafka_2.11-2.1.1/config/kafka_client_jaas.conf");
         Gson gson = new Gson();
         properties.put("bootstrap.servers", "127.0.0.1:9092");
         properties.put("acks", "all");
@@ -24,27 +25,19 @@ public class ProducerDemo {
         properties.put("buffer.memory", 1024000);
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("security.protocol", "SASL_PLAINTEXT");
+        properties.put("sasl.mechanism", "PLAIN");
         Producer<String, String> producer = null;
         try {
             producer = new KafkaProducer<>(properties);
             int i = 0;
             int maxSize = 10 * 3600;
             while (i <= maxSize) {
-                Map<String, Object> respondMap = new HashMap<>(16);
-                respondMap.put("id", "20190221");
-                respondMap.put("title", "开心石楠");
-                respondMap.put("content", "市委网信办全面开展网站平台涉保健品虚假宣传专项清理整治行动，即日起天津网" +
-                        "信网正式推出涉保健品虚假宣传举报窗口，通过“88908890”热线电话和官方网站链接，为集中打击清理" +
-                        "整顿保健品市场乱象提供线索。桂东电力产品价格下跌");
-                respondMap.put("ctime", 1550739964);
-                respondMap.put("url", "");
-                respondMap.put("type", "create");
-                respondMap.put("source", "test");
                 i++;
                 String msg = "This is Message " + i;
-                producer.send(new ProducerRecord<>("article_sq", "msgCount", gson.toJson(respondMap)));
+                producer.send(new ProducerRecord<>("article", "msgCount", msg));
                 System.out.println("Sent:" + msg);
-                Thread.sleep(200);
+//                Thread.sleep(200);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,7 +21,8 @@ public class ConsumerDemo {
 
     public static void main(String[] args) {
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "39.96.24.162:9092");
+        System.setProperty("java.security.auth.login.config", "C:/software/kafka_2.11-2.1.1/config/kafka_client_jaas.conf");
+        properties.put("bootstrap.servers", "127.0.0.1:9092");
         properties.put("group.id", "cls-owl-article");
         properties.put("enable.auto.commit", "false");
         properties.put("auto.commit.interval.ms", "1000");
@@ -29,13 +30,14 @@ public class ConsumerDemo {
         properties.put("session.timeout.ms", "30000");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-
+        properties.put("security.protocol", "SASL_PLAINTEXT");
+        properties.put("sasl.mechanism", "PLAIN");
         Gson gson = new Gson();
         Type mapType = new TypeToken<Map<String, Object>>() {
         }.getType();
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
-        kafkaConsumer.subscribe(Collections.singletonList("article_sq"));
+        kafkaConsumer.subscribe(Collections.singletonList("testTopic"));
         try {
             while (true) {
                 ConsumerRecords<String, String> records = kafkaConsumer.poll(1000);
@@ -43,10 +45,10 @@ public class ConsumerDemo {
                     if (record.value().contains("334746")) {
                         System.out.println("" + gson.fromJson(record.value(), mapType));
                     }
-//                    System.out.println("--------------------------------");
+                    System.out.println("--------------------------------");
                     System.out.println(String.format("Consume partition:%d offset:%d value:%s", record.partition(), record.offset(), record.value()));
                 }
-//                kafkaConsumer.commitSync();
+                kafkaConsumer.commitSync();
             }
         } catch (Exception e) {
             e.printStackTrace();

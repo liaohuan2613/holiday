@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-test" />
         <module name="dup-test" />
+        <module name="es-test" />
         <module name="kafka-test" />
         <module name="lhkgit" />
         <module name="lintcode" />
@@ -18,6 +19,7 @@
     <bytecodeTargetLevel>
       <module name="api-test" target="8" />
       <module name="dup-test" target="8" />
+      <module name="es-test" target="8" />
       <module name="kafka-test" target="8" />
       <module name="lhkgit" target="1.7" />
       <module name="lintcode" target="1.5" />
