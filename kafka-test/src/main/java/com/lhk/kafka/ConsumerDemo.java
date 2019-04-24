@@ -21,12 +21,13 @@ public class ConsumerDemo {
 
     public static void main(String[] args) {
         Properties properties = new Properties();
-        System.setProperty("java.security.auth.login.config", "C:/software/kafka_2.11-2.1.1/config/kafka_client_jaas.conf");
-        properties.put("bootstrap.servers", "127.0.0.1:9092");
-        properties.put("group.id", "cls-owl-article");
-        properties.put("enable.auto.commit", "false");
+        System.setProperty("java.security.auth.login.config", "C:/tmp/test/kafka_client_jaas.conf");
+        properties.put("bootstrap.servers", "47.96.26.149:9092,47.96.27.99:9092,47.96.3.207:9092");
+//        properties.put("bootstrap.servers", "127.0.0.1:9092");
+        properties.put("group.id", "test-owl-article");
+        properties.put("enable.auto.commit", "true");
         properties.put("auto.commit.interval.ms", "1000");
-        properties.put("auto.offset.reset", "earliest");
+        properties.put("auto.offset.reset", "latest");
         properties.put("session.timeout.ms", "30000");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
@@ -37,18 +38,14 @@ public class ConsumerDemo {
         }.getType();
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
-        kafkaConsumer.subscribe(Collections.singletonList("testTopic"));
+        kafkaConsumer.subscribe(Collections.singletonList("origin-article"));
         try {
             while (true) {
                 ConsumerRecords<String, String> records = kafkaConsumer.poll(1000);
                 for (ConsumerRecord<String, String> record : records) {
-                    if (record.value().contains("334746")) {
-                        System.out.println("" + gson.fromJson(record.value(), mapType));
-                    }
                     System.out.println("--------------------------------");
-                    System.out.println(String.format("Consume partition:%d offset:%d value:%s", record.partition(), record.offset(), record.value()));
+                    System.out.println(String.format("Consume partition:%d offset:%d value:%s", record.partition(), record.offset(),  record.value()));
                 }
-                kafkaConsumer.commitSync();
             }
         } catch (Exception e) {
             e.printStackTrace();

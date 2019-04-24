@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SecKill/SecKill.iml" filepath="$PROJECT_DIR$/SecKill/SecKill.iml" />
       <module fileurl="file://$PROJECT_DIR$/api-test/api-test.iml" filepath="$PROJECT_DIR$/api-test/api-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/canal-test/canal-test.iml" filepath="$PROJECT_DIR$/canal-test/canal-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/dup-test/dup-test.iml" filepath="$PROJECT_DIR$/dup-test/dup-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/es-test/es-test.iml" filepath="$PROJECT_DIR$/es-test/es-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/holiday.iml" filepath="$PROJECT_DIR$/holiday.iml" />

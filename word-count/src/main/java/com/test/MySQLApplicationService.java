@@ -102,9 +102,9 @@ public class MySQLApplicationService {
     public static Connection getCollection() {
         if (conn == null) {
             try {
-//                conn = DriverManager.getConnection("jdbc:mysql://47.96.26.149:3306/LOG_SOURCE?useUnicode=true&characterEncoding=utf8", "devUser", "password1!");
+                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:11306/GJ_PAGE_VIEW?useUnicode=true&characterEncoding=utf8", "root", "password1!");
 //                conn = DriverManager.getConnection("jdbc:mysql://10.104.15.109:3306/HAITONG?useUnicode=true&characterEncoding=utf8", "root", "password!");
-                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:10906/MINGSHENG?useUnicode=true&characterEncoding=utf8", "root", "password!");
+//                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:10906/MINGSHENG?useUnicode=true&characterEncoding=utf8", "root", "password!");
 //                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/log_source?useUnicode=true&characterEncoding=utf8",
 //                        "root", "");
                 System.out.println("[MySQL Client]: MySQL Client create SUCCESS");

@@ -17,6 +17,7 @@
         <option value="$PROJECT_DIR$/api-test/pom.xml" />
         <option value="$PROJECT_DIR$/dup-test/pom.xml" />
         <option value="$PROJECT_DIR$/es-test/pom.xml" />
+        <option value="$PROJECT_DIR$/canal-test/pom.xml" />
       </list>
     </option>
   </component>

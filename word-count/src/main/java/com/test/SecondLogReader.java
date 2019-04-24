@@ -81,7 +81,6 @@ public class SecondLogReader {
         if ("".equals(itemMap.get("rsId").toString())) {
             System.out.println(content.toString());
         }
-
         return itemMap;
     }
 

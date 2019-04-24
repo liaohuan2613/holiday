@@ -13,11 +13,13 @@ import java.util.*;
  */
 public class ProducerDemo {
 
+    static Gson gson = new Gson();
+
     public static void main(String[] args) {
         Properties properties = new Properties();
-        System.setProperty("java.security.auth.login.config", "C:/software/kafka_2.11-2.1.1/config/kafka_client_jaas.conf");
-        Gson gson = new Gson();
-        properties.put("bootstrap.servers", "127.0.0.1:9092");
+        System.setProperty("java.security.auth.login.config", "C:/tmp/prod/kafka_client_jaas.conf");
+        properties.put("bootstrap.servers", "47.96.26.149:9092,47.96.27.99:9092,47.96.3.207:9092");
+//        properties.put("bootstrap.servers", "127.0.0.1:9092");
         properties.put("acks", "all");
         properties.put("retries", 0);
         properties.put("batch.size", 100);
@@ -28,22 +30,35 @@ public class ProducerDemo {
         properties.put("security.protocol", "SASL_PLAINTEXT");
         properties.put("sasl.mechanism", "PLAIN");
         Producer<String, String> producer = null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", "1");
+        map.put("title", "测试");
+        map.put("content", "测试数据，请别在意");
+        map.put("source", "测试环境");
+        map.put("url", "http://www.test.com");
+        map.put("weight", "0");
+        map.put("platform", "web");
+        map.put("recommend", "0");
+        map.put("type", "-1");
+        map.put("jpush", "0");
+        map.put("status", "0");
+        map.put("ctime", "1555917538");
         try {
             producer = new KafkaProducer<>(properties);
             int i = 0;
-            int maxSize = 10 * 3600;
-            while (i <= maxSize) {
+            int maxSize = 1;
+            while (i < maxSize) {
                 i++;
-                String msg = "This is Message " + i;
-                producer.send(new ProducerRecord<>("article", "msgCount", msg));
-                System.out.println("Sent:" + msg);
+                producer.send(new ProducerRecord<>("test", "msgCount", gson.toJson(map)));
+                System.out.println("Sent:" + gson.toJson(map));
 //                Thread.sleep(200);
             }
         } catch (Exception e) {
             e.printStackTrace();
-
         } finally {
-            producer.close();
+            if (producer != null) {
+                producer.close();
+            }
         }
 
     }
