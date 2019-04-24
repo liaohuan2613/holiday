@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -42,8 +45,20 @@ public class FirstLogReader {
     public static void main(String[] args) {
         try {
             for (String path : args) {
-                List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
-                lines.stream().map(FirstLogReader::mapper).filter(FirstLogReader::filter).forEach(FirstLogReader::printForEach);
+                File file = new File(path);
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String readJson;
+                List<Map<String, Object>> lines = new ArrayList<>();
+                int count = 0;
+                while ((readJson = br.readLine()) != null) {
+                    lines.add(mapper(readJson));
+                    count++;
+                    if (count % 1000 == 0) {
+                        lines.stream().filter(FirstLogReader::filter).forEach(FirstLogReader::printForEach);
+                        lines = new ArrayList<>();
+                    }
+                }
+                lines.stream().filter(FirstLogReader::filter).forEach(FirstLogReader::printForEach);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +94,7 @@ public class FirstLogReader {
         LocalDateTime enterTime = LocalDateTime.parse(contentMap.get("ENT_TIME").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS"));
         LocalDateTime publishTime = LocalDateTime.parse(contentMap.get("PUB_DT").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS"));
         contentMap.put("ENT_TIME", enterTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        contentMap.put("PUB_DT",publishTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        contentMap.put("PUB_DT", publishTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         contentMap.put("UPD_TIME", LocalDateTime.parse(contentMap.get("UPD_TIME").toString(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         for (Map.Entry<String, Object> entry : contentMap.entrySet()) {
