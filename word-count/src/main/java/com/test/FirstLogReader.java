@@ -21,26 +21,34 @@ public class FirstLogReader {
     static String[] originStrGroup = new String[]{"MSG_ID", "CONTENT_TIT", "CONTENT_CONT", "CONTENT_AUTO_TAGS", "CONTENT_RS_ID", "CONTENT_TYP_NAME",
             "CONTENT_PUB_DT", "CONTENT_ENT_TIME"};
     static String[] newStrGroup = new String[]{"msg_id", "title", "content", "tags", "supplier", "type_name", "publish_time", "enter_time"};
-    //    title,
-//    CONTENT_TIT
-//            body, CONTENT_CONT
-//    tags,CONTENT_AUTO_TAGS
-//    title_length:
-//    body_length:
-//    supplier:CONTENT_RS_ID
-//    type_name:CONTENT_TYP_NAME
-//    publish_time:CONTENT_PUB_DT
-//    落地时间 enter_time:CONTENT_ENT_TIME
-//    落地延时 enter_delay：落地时间 -发布时间
-//    打出标签总量 tags_count:
-//    打出标签类别量 tag_category_count:
-//    打出个股标签量 stock_tag_count:
-//    打出主题标签量 concept_tag_count:
-//    打出新闻标签量 news_tag_count:
-//    打出行业标签量 industry_tag_count:
-//    打出地域标签量 region_tag_count:
-//    多空标识 emtion:EMOTION标签的tagName
-//    打出的首个标签类别 first_tag_category:showTags权重最高标签的category
+
+    /**
+     * 标题 title：CONTENT.TIT
+     * 正文 body: CONTENT.CONT
+     * 标签 tags: CONTENT.AUTO_TAGS
+     * 标题长度 title_length:
+     * 正文长度 body_length:
+     * 供应商 supplier: CONTENT.RS_ID
+     * 栏目 type_name: CONTENT.TYP_NAME
+     * 发布时间 publish_time: CONTENT.PUB_DT
+     * 落地时间 enter_time: CONTENT.ENT_TIME
+     * 落地延时 enter_delay：落地时间 - 发布时间
+     * 打出标签总量 tags_count:
+     * 打出标签类别量 tag_category_count:
+     * 打出个股标签量 stock_tag_count:
+     * 打出主题标签量 concept_tag_count:
+     * 打出新闻标签量 news_tag_count:
+     * 打出行业标签量 industry_tag_count:
+     * 打出地域标签量 region_tag_count:
+     * 多空标识 emtion: EMOTION标签的tagName
+     * 打出的首个标签类别 first_tag_category: showTags权重最高标签的category，没有showTag的为：other
+     * 标题中打出标签总数 title_tags_count:
+     * 标题中打出个股数 title_stock_count:
+     * 标题中打出主题标签数 title_concept_count:
+     * 标题中打出新闻标签数 title_news_count:
+     * 标题中打出行业标签数 title_industry_count:
+     * 标题中打出地域标签数 title_region_count:
+     */
 
     public static void main(String[] args) {
         try {
