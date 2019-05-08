@@ -23,7 +23,7 @@ public class SplitMysqlData {
     }
 
     public static void splitInsertSql(String sql) throws Exception {
-        Connection connection = MySQLApplicationService.getCollection();
+        Connection connection = MySQLApplicationService.getCollection(0);
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }

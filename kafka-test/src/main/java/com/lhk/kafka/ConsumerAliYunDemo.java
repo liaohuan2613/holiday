@@ -17,14 +17,14 @@ public class ConsumerAliYunDemo {
     public static void main(String[] args) {
 
         //设置sasl文件的路径
-        System.setProperty("java.security.auth.login.config", "C:/tmp/test/kafka_client_jaas.conf");
+        System.setProperty("java.security.auth.login.config", "C:/tmp/prod/kafka_client_jaas.conf");
 
         Properties props = new Properties();
         //设置接入点，请通过控制台获取对应Topic的接入点
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "39.105.133.14:9093,39.105.38.165:9093,39.107.109.56:9093");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "39.96.66.33:9093,39.96.51.48:9093,39.96.69.47:9093");
         //设置SSL根证书的路径，请记得将XXX修改为自己的路径
         //与sasl路径类似，该文件也不能被打包到jar中
-        props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, "C:/tmp/test/kafka.client.truststore.jks");
+        props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, "C:/tmp/prod/kafka.client.truststore.jks");
         //根证书store的密码，保持不变
         props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, "KafkaOnsClient");
         //接入协议，目前支持使用SASL_SSL协议接入
@@ -42,7 +42,7 @@ public class ConsumerAliYunDemo {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         //当前消费实例所属的消费组，请在控制台申请之后填写
         //属于同一个组的消费实例，会负载消费消息
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "945d7e5e-f1f5-42c5-aede-3113391e625b-shenqing1");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "2d9136e9-0573-4cac-948c-1f1245a15c44-nf-sq");
         //构造消息对象，也即生成一个消费实例
         KafkaConsumer<String, String> consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(props);
         //设置消费组订阅的Topic，可以订阅多个
@@ -50,7 +50,7 @@ public class ConsumerAliYunDemo {
         List<String> subscribedTopics =  new ArrayList<>();
         //如果需要订阅多个Topic，则在这里add进去即可
         //每个Topic需要先在控制台进行创建
-        subscribedTopics.add("10cfbb6c-1e00-40fe-94d9-896cbdfd52ed-subjectdata-article");
+        subscribedTopics.add("edbc8877-2511-4123-952f-ebf543ec5897-local-data-owl");
 //        subscribedTopics.add("cls_subjectdata_article_prod");
         consumer.subscribe(subscribedTopics);
 

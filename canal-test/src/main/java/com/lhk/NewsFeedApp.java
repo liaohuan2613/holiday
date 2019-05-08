@@ -8,13 +8,15 @@ import com.alibaba.otter.canal.protocol.Message;
 import com.google.gson.Gson;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.net.InetSocketAddress;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@SpringBootApplication
 public class NewsFeedApp {
     private static Gson gson = new Gson();
 
@@ -100,26 +102,64 @@ public class NewsFeedApp {
             if ("lian_v1_article".equals(entry.getHeader().getTableName())) {
                 for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
                     if (eventType == CanalEntry.EventType.DELETE) {
-                        sendColumn(rowData.getBeforeColumnsList());
+                        sendColumn(rowData.getBeforeColumnsList(), "delete");
                     } else if (eventType == CanalEntry.EventType.INSERT) {
-                        sendColumn(rowData.getBeforeColumnsList());
+                        sendColumn(rowData.getAfterColumnsList(), "insert");
                     } else if (eventType == CanalEntry.EventType.UPDATE) {
-                        sendColumn(rowData.getAfterColumnsList());
+                        sendColumn(rowData.getAfterColumnsList(), "update");
                     }
                 }
             }
         }
     }
 
-    private static void sendColumn(List<CanalEntry.Column> columns) {
+    private static void sendColumn(List<CanalEntry.Column> columns, String operationType) {
         final Map<String, Object> sendMap = new HashMap<>();
         keySet.forEach(key -> sendMap.put(key, ""));
-        for (CanalEntry.Column column : columns) {
-            if (keySet.contains(column.getName())) {
-                sendMap.put(column.getName(), column.getValue());
-                System.out.println(column.getName() + " : " + column.getValue());
+        try {
+            Set<String> subjectIdSet = new HashSet<>();
+            boolean isPushSSE = true;
+            for (CanalEntry.Column column : columns) {
+                if ("is_push_sse".equals(column.getName())) {
+                    try {
+                        isPushSSE = Boolean.valueOf(column.getValue());
+                    } catch (RuntimeException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                if ("id".equals(column.getName())) {
+                    System.out.println("Get ID SUCCESS: " + column.getValue());
+                    if ("".equals(column.getValue())) {
+                        return;
+                    } else {
+                        String sql = "select subject_id from lian_subject_article_assoc where article_id = '" + column.getValue() + "'";
+                        Connection conn = MySQLApplicationService.getConnection();
+                        try (Statement statement = conn.createStatement()) {
+                            ResultSet resultSet = statement.executeQuery(sql);
+                            while (resultSet.next()) {
+                                subjectIdSet.add(resultSet.getString("subject_id"));
+                            }
+                        }
+                        System.out.println("Subject Ids is: " + subjectIdSet);
+                    }
+                }
+                if (keySet.contains(column.getName())) {
+                    sendMap.put(column.getName(), column.getValue());
+                    System.out.println(column.getName() + " : " + column.getValue());
+                }
             }
+            sendMap.put("tags", subjectIdSet);
+            sendMap.put("supplier", "\u8d22\u8054\u793e");
+            sendMap.put("operationType", operationType);
+            System.out.println(sendMap);
+            if (isPushSSE) {
+                kafkaProducer.send(new ProducerRecord<>("origin-article", "msgCount", gson.toJson(sendMap)));
+            }
+            kafkaProducer.send(new ProducerRecord<>("origin-article-all", "msgCount", gson.toJson(sendMap)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            MySQLApplicationService.resetConnection();
+            System.out.println("ERROR: reset connection.....");
         }
-        kafkaProducer.send(new ProducerRecord<>("origin-article", "msgCount", gson.toJson(sendMap)));
     }
 }

@@ -39,7 +39,7 @@ public class ProducerAliYunDemo {
 
         //构造Producer对象，注意，该对象是线程安全的，一般来说，一个进程内一个Producer对象即可；
         //如果想提高性能，可以多构造几个对象，但不要太多，最好不要超过5个
-        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
+        KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
         //构造一个Kafka消息
         String topic = kafkaProperties.getProperty("topic"); //消息所属的Topic，请在控制台申请之后，填写在这里
@@ -47,7 +47,7 @@ public class ProducerAliYunDemo {
 
         try {
             for (int i =0; i < 100; i++) {
-                ProducerRecord<String, String>  kafkaMessage =  new ProducerRecord<String, String>(topic, value + ": " + i);
+                ProducerRecord<String, String>  kafkaMessage = new ProducerRecord<>(topic, value + ": " + i);
                 //发送消息，并获得一个Future对象
                 Future<RecordMetadata> metadataFuture = producer.send(kafkaMessage);
                 //同步获得Future对象的结果

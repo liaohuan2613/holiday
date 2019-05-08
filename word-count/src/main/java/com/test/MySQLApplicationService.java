@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class MySQLApplicationService {
 
-    private static Connection conn;
+    private static Connection[] conn = new Connection[100];
     private static AtomicInteger count = new AtomicInteger(0);
     private static AtomicInteger runningTime = new AtomicInteger(0);
     private static ReentrantLock lock = new ReentrantLock(true);
@@ -86,11 +86,11 @@ public class MySQLApplicationService {
                     "<script type='text/javascript' src='echarts.js' ></script>\n<script type='text/javascript'>";
 //            htmlBody += printTimeliness(getCollection());
 //            htmlBody += printUpdateRate(getCollection());
-            htmlBody += printDupRate(getCollection());
+            htmlBody += printDupRate(getCollection(0));
 //            htmlBody += printDayTrend(getCollection());
-            htmlBody += printHourTrend(getCollection());
-            htmlBody += printAVGHourTrend(getCollection(), "2019-01-27", 2);
-            htmlBody += printScatterChart(getCollection());
+            htmlBody += printHourTrend(getCollection(0));
+            htmlBody += printAVGHourTrend(getCollection(0), "2019-01-27", 2);
+            htmlBody += printScatterChart(getCollection(0));
             htmlBody += "</script></body></html>";
             fos.write(htmlBody.getBytes());
         } catch (IOException e) {
@@ -99,10 +99,10 @@ public class MySQLApplicationService {
     }
 
 
-    public static Connection getCollection() {
-        if (conn == null) {
+    public static Connection getCollection(int thisIndex) {
+        if (conn[thisIndex] == null) {
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:11306/GJ_PAGE_VIEW?useUnicode=true&characterEncoding=utf8", "root", "password1!");
+                conn[thisIndex] = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/article?useUnicode=true&characterEncoding=utf8", "root", "password1!");
 //                conn = DriverManager.getConnection("jdbc:mysql://10.104.15.109:3306/HAITONG?useUnicode=true&characterEncoding=utf8", "root", "password!");
 //                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:10906/MINGSHENG?useUnicode=true&characterEncoding=utf8", "root", "password!");
 //                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/log_source?useUnicode=true&characterEncoding=utf8",
@@ -113,7 +113,7 @@ public class MySQLApplicationService {
                 e.printStackTrace();
             }
         }
-        return conn;
+        return conn[thisIndex];
     }
 
     public static void deleteOneDocument(Connection conn, String tableName, String msgId) {
@@ -297,7 +297,7 @@ public class MySQLApplicationService {
         map.put("CONTENT_ENT_TIME", contentEntTime);
         map.put("PUB_DT_TO_ENT_TIME", pubDtToEntTime);
         map.put("CONTENT_RS_ID", rsId);
-        insertOneDocument(conn, "log_refresh_operation_" + day, map);
+        insertOneDocument(conn[0], "log_refresh_operation_" + day, map);
     }
 
     private static Map<String, Object> RemovalMap(Map<String, Object> requestMap) {
@@ -889,7 +889,7 @@ public class MySQLApplicationService {
 //        String parentCode = "C003";
 //        String code = "CLS_10101003;XG_A00002;CLS_10700013;CLS_10700012;CLS_10108003;CLS_10108009;CLS_10108008;CLS_10108007;CLS_10108001;CLS_10108006;CLS_10108002;CLS_10108005;CLS_10108011";
 
-        printTimeliness(getCollection());
+        printTimeliness(getCollection(0));
     }
 
 }
