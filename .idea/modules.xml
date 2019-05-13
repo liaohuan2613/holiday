@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/lhkgit/lhkgit.iml" filepath="$PROJECT_DIR$/lhkgit/lhkgit.iml" />
       <module fileurl="file://$PROJECT_DIR$/lineup/lineup.iml" filepath="$PROJECT_DIR$/lineup/lineup.iml" />
       <module fileurl="file://$PROJECT_DIR$/lintcode/lintcode.iml" filepath="$PROJECT_DIR$/lintcode/lintcode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mysql-test/mysql-test.iml" filepath="$PROJECT_DIR$/mysql-test/mysql-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/word-count/word-count.iml" filepath="$PROJECT_DIR$/word-count/word-count.iml" />
     </modules>

@@ -29,7 +29,7 @@ public class ThirdLogReader {
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
-        collection = MongoDBApplicationService.getCollection();
+        collection = MongoDBApplicationService.getCollection("NEWS");
 
         //连接到数据库
         System.out.println("Connect to database successfully");

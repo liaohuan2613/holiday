@@ -2,6 +2,7 @@ package com.test;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.bson.Document;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,8 +21,11 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FirstLogReader {
+
+    private static AtomicInteger countNum = new AtomicInteger();
 
     private static Gson gson = new Gson();
 //    static String[] originStrGroup = new String[]{"MSG_ID", "CONTENT_ID", "CONTENT_TIT", "CONTENT_CONT", "CONTENT_AUTO_TAGS", "CONTENT_RS_ID", "CONTENT_TYP_NAME",
@@ -88,12 +92,12 @@ public class FirstLogReader {
 
     protected static Map<String, Object> mapper(String st) {
         try {
-            if (st.contains("NWS_TAG")) {
-                String value = st.substring(st.indexOf(" |$| ") + " |$| ".length());
-                Type type = new TypeToken<Map<String, Object>>() {
-                }.getType();
-                return gson.fromJson(value, type);
-            }
+//            if (st.contains("NWS_TAG")) {
+            String value = st.substring(st.indexOf(" |$| ") + " |$| ".length());
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            return gson.fromJson(value, type);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,16 +105,16 @@ public class FirstLogReader {
     }
 
     protected static boolean filter(Map<String, Object> filterMap) {
-        Object msgType = filterMap.get("MSG_TYPE");
-        if (msgType != null && "NWS_TAG".equals(msgType.toString())) {
-            Object content = filterMap.get("CONTENT");
-            Type type = new TypeToken<Map<String, Object>>() {
-            }.getType();
-            Map<String, Object> contentMap = gson.fromJson(gson.toJson(content), type);
-            contentMap.putIfAbsent("RS_ID", "NM");
-            return true;
-        }
-        return false;
+//        Object msgType = filterMap.get("MSG_TYPE");
+//        if (msgType != null && "NWS_TAG".equals(msgType.toString())) {
+        Object content = filterMap.get("CONTENT");
+        Type type = new TypeToken<Map<String, Object>>() {
+        }.getType();
+        Map<String, Object> contentMap = gson.fromJson(gson.toJson(content), type);
+        contentMap.putIfAbsent("RS_ID", "NM");
+        return true;
+//        }
+//        return false;
     }
 
 //    private static void printForEach(Map<String, Object> itemMap) {
@@ -206,11 +210,14 @@ public class FirstLogReader {
             }
         }
         itemMap.remove("CONTENT");
-        Map<String, Object> targetMap = new HashMap<>();
-        for (int i = 0; i < originStrGroup.length; i++) {
-            targetMap.put(newStrGroup[i], itemMap.get(originStrGroup[i]));
-        }
-        MySQLApplicationService.insertOneDocument(MySQLApplicationService.getCollection(0), "log_fix", targetMap);
+//        Map<String, Object> targetMap = new HashMap<>();
+//        for (int i = 0; i < originStrGroup.length; i++) {
+//            targetMap.put(newStrGroup[i], itemMap.get(originStrGroup[i]));
+//        }
+
+        MongoDBApplicationService.insertOneDocument(MongoDBApplicationService.getCollection((String) itemMap.get("MSG_TYPE")), new Document(itemMap));
+        System.out.println(countNum.getAndAdd(1));
+//        MySQLApplicationService.insertOneDocument(MySQLApplicationService.getCollection(0), "log_fix", targetMap);
     }
 
     private ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 0,

@@ -20,7 +20,7 @@ import static com.mongodb.client.model.Projections.*;
 
 public class MongoDBApplicationService {
 
-    public static MongoCollection<Document> collection;
+    public static Map<String, MongoCollection<Document>> collectionMap = new Hashtable<>();
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
@@ -54,12 +54,12 @@ public class MongoDBApplicationService {
 //        System.out.println("================= Day Trad ======================");
 //        printStabilityForDayForEach(collection);
 //        System.out.println("\n\n\n");
-        findArticle(getCollection());
+        findArticle(getCollection("NEWS"));
     }
 
 
-    public static MongoCollection<Document> getCollection() {
-        if (collection == null) {
+    public static MongoCollection<Document> getCollection(String type) {
+        if (collectionMap.get(type) == null) {
             try {
                 ServerAddress serverAddress = new ServerAddress("203.156.205.101", 10917);
 //                ServerAddress serverAddress = new ServerAddress("47.96.26.118", 27017);
@@ -67,20 +67,17 @@ public class MongoDBApplicationService {
                 addresses.add(serverAddress);
 
                 MongoCredential credential = MongoCredential.createScramSha1Credential("dev", "NET_DEV", "password1!".toCharArray());
-                List<MongoCredential> credentials = new ArrayList<>();
-                credentials.add(credential);
-
                 MongoClientOptions.Builder build = new MongoClientOptions.Builder();
                 MongoClient mongoClient = new MongoClient(addresses, credential, build.build());
                 MongoDatabase mongoDatabase = mongoClient.getDatabase("NET_DEV");
-                collection = mongoDatabase.getCollection("Article");
+                collectionMap.put(type, mongoDatabase.getCollection("KafkaLogs_" + type));
                 System.out.println("[mongodb client]: mongodb Create SUCCESS");
             } catch (Exception e) {
                 System.err.println("[mongodb client]: mongodb Create FAILED");
                 e.printStackTrace();
             }
         }
-        return collection;
+        return collectionMap.get(type);
     }
 
     public static void findArticle(MongoCollection<Document> collection) {
@@ -110,18 +107,11 @@ public class MongoDBApplicationService {
 
     public static void insertOneDocument(MongoCollection<Document> collection, Document document) {
         try {
-            document = new Document();
             collection.insertOne(document);
             System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                     + "============Document insert SUCCESS! ");
         } catch (Exception e) {
-            try {
-                collection.insertOne(document);
-            } catch (Exception e2) {
-                e2.printStackTrace();
-                System.err.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-                        + "============Document insert ERROR! ");
-            }
+            e.printStackTrace();
         }
     }
 

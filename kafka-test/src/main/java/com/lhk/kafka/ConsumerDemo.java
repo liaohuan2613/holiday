@@ -22,9 +22,9 @@ public class ConsumerDemo {
 
     public static void main(String[] args) {
         Properties properties = new Properties();
-        System.setProperty("java.security.auth.login.config", "C:/tmp/prod/kafka_client_jaas.conf");
-        properties.put("bootstrap.servers", "47.96.26.149:9092,47.96.27.99:9092,47.96.3.207:9092");
-//        properties.put("bootstrap.servers", "127.0.0.1:9092");
+//        System.setProperty("java.security.auth.login.config", "C:/tmp/prod/kafka_client_jaas.conf");
+//        properties.put("bootstrap.servers", "47.96.26.149:9092,47.96.27.99:9092,47.96.3.207:9092");
+        properties.put("bootstrap.servers", "203.156.205.102:9092");
         properties.put("group.id", "test-update-remark-status");
         properties.put("enable.auto.commit", "true");
         properties.put("auto.commit.interval.ms", "1000");
@@ -33,14 +33,14 @@ public class ConsumerDemo {
         properties.put("session.timeout.ms", "30000");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("security.protocol", "SASL_PLAINTEXT");
-        properties.put("sasl.mechanism", "PLAIN");
+//        properties.put("security.protocol", "SASL_PLAINTEXT");
+//        properties.put("sasl.mechanism", "PLAIN");
         Gson gson = new Gson();
         Type mapType = new TypeToken<Map<String, Object>>() {
         }.getType();
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
-        kafkaConsumer.subscribe(Collections.singletonList("abcd"));
+        kafkaConsumer.subscribe(Collections.singletonList("owl"));
         try {
             int count = 0;
             while (true) {

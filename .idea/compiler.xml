@@ -13,6 +13,7 @@
         <module name="kafka-test" />
         <module name="lhkgit" />
         <module name="lintcode" />
+        <module name="mysql-test" />
         <module name="SecKill" />
         <module name="word-count" />
       </profile>
@@ -25,6 +26,7 @@
       <module name="kafka-test" target="8" />
       <module name="lhkgit" target="1.7" />
       <module name="lintcode" target="1.5" />
+      <module name="mysql-test" target="8" />
       <module name="SecKill" target="1.5" />
       <module name="word-count" target="8" />
     </bytecodeTargetLevel>

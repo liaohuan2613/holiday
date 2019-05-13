@@ -17,7 +17,7 @@ public class ArticleRepository {
     public MongoCollection<Document> collection;
 
     public ArticleRepository() {
-        collection = MongoDBApplicationService.getCollection();
+        collection = MongoDBApplicationService.getCollection("NEWS");
     }
 
     public static void main(String[] args) {
