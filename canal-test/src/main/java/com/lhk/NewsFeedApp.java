@@ -102,11 +102,11 @@ public class NewsFeedApp {
             if ("lian_v1_article".equals(entry.getHeader().getTableName())) {
                 for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
                     if (eventType == CanalEntry.EventType.DELETE) {
-                        sendColumn(rowData.getBeforeColumnsList(), "delete");
+                        sendColumn(rowData.getBeforeColumnsList(), eventType.name().toLowerCase());
                     } else if (eventType == CanalEntry.EventType.INSERT) {
-                        sendColumn(rowData.getAfterColumnsList(), "insert");
+                        sendColumn(rowData.getAfterColumnsList(), eventType.name().toLowerCase());
                     } else if (eventType == CanalEntry.EventType.UPDATE) {
-                        sendColumn(rowData.getAfterColumnsList(), "update");
+                        sendColumn(rowData.getAfterColumnsList(), eventType.name().toLowerCase());
                     }
                 }
             }

@@ -10,9 +10,11 @@
         <module name="canal-test" />
         <module name="dup-test" />
         <module name="es-test" />
+        <module name="jdbc-template-test" />
         <module name="kafka-test" />
         <module name="lhkgit" />
         <module name="lintcode" />
+        <module name="mongo-test" />
         <module name="mysql-test" />
         <module name="SecKill" />
         <module name="word-count" />
@@ -21,11 +23,14 @@
     <bytecodeTargetLevel>
       <module name="api-test" target="8" />
       <module name="canal-test" target="8" />
+      <module name="data-category" target="1.5" />
       <module name="dup-test" target="8" />
       <module name="es-test" target="8" />
+      <module name="jdbc-template-test" target="8" />
       <module name="kafka-test" target="8" />
       <module name="lhkgit" target="1.7" />
       <module name="lintcode" target="1.5" />
+      <module name="mongo-test" target="8" />
       <module name="mysql-test" target="8" />
       <module name="SecKill" target="1.5" />
       <module name="word-count" target="8" />

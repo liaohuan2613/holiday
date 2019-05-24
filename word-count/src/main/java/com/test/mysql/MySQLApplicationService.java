@@ -1,7 +1,8 @@
-package com.test;
+package com.test.mysql;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.test.CreateHtmlUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -84,13 +85,13 @@ public class MySQLApplicationService {
                     "<div id='weekendTrend' style='width:100%;height:550px;margin: 5% 0;'></div>" +
                     "<div id='workDayTrend' style='width:100%;height:550px;margin: 5% 0;'></div>" +
                     "<script type='text/javascript' src='echarts.js' ></script>\n<script type='text/javascript'>";
-//            htmlBody += printTimeliness(getCollection());
-//            htmlBody += printUpdateRate(getCollection());
-            htmlBody += printDupRate(getCollection(0));
-//            htmlBody += printDayTrend(getCollection());
-            htmlBody += printHourTrend(getCollection(0));
-            htmlBody += printAVGHourTrend(getCollection(0), "2019-01-27", 2);
-            htmlBody += printScatterChart(getCollection(0));
+//            htmlBody += printTimeliness(getConnection());
+//            htmlBody += printUpdateRate(getConnection());
+            htmlBody += printDupRate(getConnection(0));
+//            htmlBody += printDayTrend(getConnection());
+            htmlBody += printHourTrend(getConnection(0));
+            htmlBody += printAVGHourTrend(getConnection(0), "2019-01-27", 2);
+            htmlBody += printScatterChart(getConnection(0));
             htmlBody += "</script></body></html>";
             fos.write(htmlBody.getBytes());
         } catch (IOException e) {
@@ -99,10 +100,10 @@ public class MySQLApplicationService {
     }
 
 
-    public static Connection getCollection(int thisIndex) {
+    public static Connection getConnection(int thisIndex) {
         if (conn[thisIndex] == null) {
             try {
-                conn[thisIndex] = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/article?useUnicode=true&characterEncoding=utf8", "root", "password1!");
+                conn[thisIndex] = DriverManager.getConnection("jdbc:mysql://203.156.205.101:10906/GJ_POC?useUnicode=true&characterEncoding=utf8", "root", "password!");
 //                conn = DriverManager.getConnection("jdbc:mysql://10.104.15.109:3306/HAITONG?useUnicode=true&characterEncoding=utf8", "root", "password!");
 //                conn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:10906/MINGSHENG?useUnicode=true&characterEncoding=utf8", "root", "password!");
 //                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/log_source?useUnicode=true&characterEncoding=utf8",
@@ -858,7 +859,7 @@ public class MySQLApplicationService {
     public static void main(String[] args) {
 //        String sql = "select * from POC_NEWS_0304 where ID = 'NW201901071021057779'";
 //        try {
-//            Statement statement = getCollection().createStatement();
+//            Statement statement = getConnection().createStatement();
 //            ResultSet resultSet = statement.executeQuery(sql);
 //            Map<String, Object> requestMap = new HashMap<>();
 //            while (resultSet.next()) {
@@ -889,7 +890,7 @@ public class MySQLApplicationService {
 //        String parentCode = "C003";
 //        String code = "CLS_10101003;XG_A00002;CLS_10700013;CLS_10700012;CLS_10108003;CLS_10108009;CLS_10108008;CLS_10108007;CLS_10108001;CLS_10108006;CLS_10108002;CLS_10108005;CLS_10108011";
 
-        printTimeliness(getCollection(0));
+        printTimeliness(getConnection(0));
     }
 
 }

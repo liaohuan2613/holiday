@@ -1,11 +1,10 @@
-package com.test;
+package com.test.mysql;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.sql.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ public class MySQLFindFirstCategory {
     public static void main(String[] args) {
         try {
             String tableName = "POC_NEWS_ANXIN";
-            Connection conn = MySQLApplicationService.getCollection(0);
+            Connection conn = MySQLApplicationService.getConnection(0);
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("select ID, STOCK_TAGS, CONCEPT_TAGS, INDUSTRY_TAGS, REGION_TAGS, " +
                     " NEWS_TAGS from " + tableName);

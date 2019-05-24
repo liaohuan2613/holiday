@@ -1,7 +1,9 @@
-package com.test;
+package com.test.readers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.test.MongoDBApplicationService;
+import com.test.mysql.MySQLApplicationService;
 import org.bson.Document;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -14,9 +16,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -228,7 +227,7 @@ public class FirstLogReader {
         try {
             int size = 46000;
             for (int i = 0; i < 10; i++) {
-                Connection conn = MySQLApplicationService.getCollection(i);
+                Connection conn = MySQLApplicationService.getConnection(i);
                 String sql = "select msg_id, title from log_data limit " + i * size + "," + size;
                 Statement statement = conn.createStatement();
                 new Thread(() -> {

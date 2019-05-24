@@ -1,4 +1,4 @@
-package com.test;
+package com.test.readers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

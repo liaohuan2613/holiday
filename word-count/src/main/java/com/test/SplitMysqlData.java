@@ -1,5 +1,7 @@
 package com.test;
 
+import com.test.mysql.MySQLApplicationService;
+
 import java.sql.Connection;
 import java.sql.Statement;
 
@@ -23,7 +25,7 @@ public class SplitMysqlData {
     }
 
     public static void splitInsertSql(String sql) throws Exception {
-        Connection connection = MySQLApplicationService.getCollection(0);
+        Connection connection = MySQLApplicationService.getConnection(0);
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }

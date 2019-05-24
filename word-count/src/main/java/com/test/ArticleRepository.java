@@ -2,6 +2,7 @@ package com.test;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.test.utils.HTMLBuildUtils;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 

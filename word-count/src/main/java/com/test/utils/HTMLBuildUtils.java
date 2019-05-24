@@ -1,4 +1,6 @@
-package com.test;
+package com.test.utils;
+
+import com.test.HTMLBuilder;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;

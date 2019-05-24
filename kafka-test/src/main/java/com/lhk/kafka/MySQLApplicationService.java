@@ -17,7 +17,7 @@ public class MySQLApplicationService {
     private static Connection conn;
     private static AtomicInteger count = new AtomicInteger(0);
 
-    public static Connection getCollection() {
+    public static Connection getConnection() {
         if (conn == null) {
             try {
                 conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/CLIENT_TEST?useUnicode=true&characterEncoding=utf8",

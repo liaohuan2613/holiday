@@ -66,11 +66,12 @@ public class MongoDBApplicationService {
                 List<ServerAddress> addresses = new ArrayList<>();
                 addresses.add(serverAddress);
 
-                MongoCredential credential = MongoCredential.createScramSha1Credential("dev", "NET_DEV", "password1!".toCharArray());
+                MongoCredential credential = MongoCredential.createScramSha1Credential("root", "TEBON",
+                        "#FGJoW^A3u*SSTbP".toCharArray());
                 MongoClientOptions.Builder build = new MongoClientOptions.Builder();
                 MongoClient mongoClient = new MongoClient(addresses, credential, build.build());
-                MongoDatabase mongoDatabase = mongoClient.getDatabase("NET_DEV");
-                collectionMap.put(type, mongoDatabase.getCollection("KafkaLogs_" + type));
+                MongoDatabase mongoDatabase = mongoClient.getDatabase("TEBON");
+                collectionMap.put(type, mongoDatabase.getCollection("Article"));
                 System.out.println("[mongodb client]: mongodb Create SUCCESS");
             } catch (Exception e) {
                 System.err.println("[mongodb client]: mongodb Create FAILED");

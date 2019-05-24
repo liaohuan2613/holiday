@@ -8,10 +8,12 @@
       <module fileurl="file://$PROJECT_DIR$/dup-test/dup-test.iml" filepath="$PROJECT_DIR$/dup-test/dup-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/es-test/es-test.iml" filepath="$PROJECT_DIR$/es-test/es-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/holiday.iml" filepath="$PROJECT_DIR$/holiday.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-template-test/jdbc-template-test.iml" filepath="$PROJECT_DIR$/jdbc-template-test/jdbc-template-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/kafka-test/kafka-test.iml" filepath="$PROJECT_DIR$/kafka-test/kafka-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/lhkgit/lhkgit.iml" filepath="$PROJECT_DIR$/lhkgit/lhkgit.iml" />
       <module fileurl="file://$PROJECT_DIR$/lineup/lineup.iml" filepath="$PROJECT_DIR$/lineup/lineup.iml" />
       <module fileurl="file://$PROJECT_DIR$/lintcode/lintcode.iml" filepath="$PROJECT_DIR$/lintcode/lintcode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mongo-test/mongo-test.iml" filepath="$PROJECT_DIR$/mongo-test/mongo-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/mysql-test/mysql-test.iml" filepath="$PROJECT_DIR$/mysql-test/mysql-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/word-count/word-count.iml" filepath="$PROJECT_DIR$/word-count/word-count.iml" />

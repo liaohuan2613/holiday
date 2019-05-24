@@ -1,18 +1,13 @@
-package com.test;
+package com.test.readers;
 
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.test.mysql.MySQLApplicationService;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +28,7 @@ public class MySQLReader {
             int finalIndex = i;
             new Thread(() -> {
                 templates[finalIndex] = new RestTemplate();
-                Connection conn = MySQLApplicationService.getCollection(finalIndex);
+                Connection conn = MySQLApplicationService.getConnection(finalIndex);
                 Statement statement = null;
                 try {
                     statement = conn.createStatement();

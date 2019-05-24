@@ -1,8 +1,9 @@
-package com.test;
+package com.test.readers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.MongoCollection;
+import com.test.MongoDBApplicationService;
 import org.bson.Document;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
