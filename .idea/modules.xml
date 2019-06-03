@@ -15,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/lintcode/lintcode.iml" filepath="$PROJECT_DIR$/lintcode/lintcode.iml" />
       <module fileurl="file://$PROJECT_DIR$/mongo-test/mongo-test.iml" filepath="$PROJECT_DIR$/mongo-test/mongo-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/mysql-test/mysql-test.iml" filepath="$PROJECT_DIR$/mysql-test/mysql-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oracle-test/oracle-test.iml" filepath="$PROJECT_DIR$/oracle-test/oracle-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/word-count/word-count.iml" filepath="$PROJECT_DIR$/word-count/word-count.iml" />
     </modules>

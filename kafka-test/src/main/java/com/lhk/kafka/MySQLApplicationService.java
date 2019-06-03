@@ -1,34 +1,88 @@
 package com.lhk.kafka;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MySQLApplicationService {
 
-    private static Connection conn;
+    private static Connection gbkConn;
+    private static Connection utfConn;
     private static AtomicInteger count = new AtomicInteger(0);
 
-    public static Connection getConnection() {
-        if (conn == null) {
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(20, 20,
+            0, TimeUnit.MINUTES, new LinkedBlockingQueue<>());
+
+    public static void main(String[] args) throws SQLException {
+        Connection utfConn = getUtfConnection();
+        int count = 0;
+        int size = 1000;
+        int totalSize = 715783 + 1000;
+        while (count * size < totalSize) {
+            int finalCount = count;
+            executor.execute(() -> {
+                try {
+                    Statement statement = utfConn.createStatement();
+                    ResultSet realResultSet = statement.executeQuery("select item_id, content from owl limit " + (finalCount * size) + "," + size);
+                    PreparedStatement ps = utfConn.prepareStatement("update owl set content = ? where item_id = ? ");
+                    Map<String, String> itemIdContentMap = new HashMap<>();
+
+                    while (realResultSet.next()) {
+                        String itemId = realResultSet.getString("item_id");
+                        String content = realResultSet.getString("content");
+                        itemIdContentMap.put(itemId, content);
+                    }
+                    for (Map.Entry<String, String> entry : itemIdContentMap.entrySet()) {
+                        ps.setString(1, HTMLFormatUtils.filterHtml(entry.getValue()));
+                        ps.setString(2, entry.getKey());
+                        System.out.println("======================>>" + entry.getKey());
+                        ps.addBatch();
+                    }
+                    ps.executeUpdate();
+                    System.out.println("commit ======" + finalCount * size);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+            count++;
+        }
+    }
+
+    public static Connection getGbkConnection() {
+        if (gbkConn == null) {
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/CLIENT_TEST?useUnicode=true&characterEncoding=utf8",
-                        "root", "password!");
+                gbkConn = DriverManager.getConnection("jdbc:mysql://203.156.205.101:11706/pubnews?useUnicode=true&characterEncoding=GBK",
+                        "root", "Mdrz#F(K14(oLcsVd^cH");
                 System.out.println("[MySQL Client]: MySQL Client create SUCCESS");
             } catch (Exception e) {
                 System.out.println("[MySQL Client]: MySQL Client create FAILED");
                 e.printStackTrace();
             }
         }
-        return conn;
+        return gbkConn;
+    }
+
+    public static Connection getUtfConnection() {
+        if (utfConn == null) {
+            try {
+                utfConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/pubnews?useUnicode=true&characterEncoding=utf8",
+                        "root", "Mdrz#F(K14(oLcsVd^cH");
+                System.out.println("[MySQL Client]: MySQL Client create SUCCESS");
+            } catch (Exception e) {
+                System.out.println("[MySQL Client]: MySQL Client create FAILED");
+                e.printStackTrace();
+            }
+        }
+        return utfConn;
     }
 
     public static void insertOneDocument(Connection conn, JsonBean jsonBean) {
@@ -53,7 +107,7 @@ public class MySQLApplicationService {
         System.out.println("-----------------");
         System.out.printf("id = %s, source = %s, platform = %s, urlWebsite = %s, newsCount = %s, publishTime = %s, enterTime = %s \n",
                 id, source, platform, urlWebsite, 1, publishTime, enterTime);
-        String sql = "INSERT INTO owl_news_count (id, source, url_website, platform, newscount, publishTime, enterTime)" +
+        String sql = "INSERT INTO owl_news_count (id, source, url_website, platform, newscount, publish_time, enter_time)" +
                 " VALUES ('" + id + "','" + source + "','" + urlWebsite + "','" + platform + "',1,'" + publishTime + "','" + enterTime + "')";
         try {
             Statement statement = conn.createStatement();

@@ -16,6 +16,7 @@
         <module name="lintcode" />
         <module name="mongo-test" />
         <module name="mysql-test" />
+        <module name="oracle-test" />
         <module name="SecKill" />
         <module name="word-count" />
       </profile>
@@ -32,6 +33,7 @@
       <module name="lintcode" target="1.5" />
       <module name="mongo-test" target="8" />
       <module name="mysql-test" target="8" />
+      <module name="oracle-test" target="1.5" />
       <module name="SecKill" target="1.5" />
       <module name="word-count" target="8" />
     </bytecodeTargetLevel>

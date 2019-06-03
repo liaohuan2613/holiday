@@ -21,6 +21,7 @@
         <option value="$PROJECT_DIR$/mysql-test/pom.xml" />
         <option value="$PROJECT_DIR$/mongo-test/pom.xml" />
         <option value="$PROJECT_DIR$/jdbc-template-test/pom.xml" />
+        <option value="$PROJECT_DIR$/oracle-test/pom.xml" />
       </list>
     </option>
   </component>
