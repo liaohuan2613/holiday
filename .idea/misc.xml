@@ -10,7 +10,6 @@
       <list>
         <option value="$PROJECT_DIR$/lhkgit/pom.xml" />
         <option value="$PROJECT_DIR$/SecKill-master/pom.xml" />
-        <option value="$PROJECT_DIR$/SecKill/pom.xml" />
         <option value="$PROJECT_DIR$/lintcode/pom.xml" />
         <option value="$PROJECT_DIR$/kafka-test/pom.xml" />
         <option value="$PROJECT_DIR$/word-count/pom.xml" />
@@ -22,6 +21,7 @@
         <option value="$PROJECT_DIR$/mongo-test/pom.xml" />
         <option value="$PROJECT_DIR$/jdbc-template-test/pom.xml" />
         <option value="$PROJECT_DIR$/oracle-test/pom.xml" />
+        <option value="$PROJECT_DIR$/rabbit-mq-test/pom.xml" />
       </list>
     </option>
   </component>

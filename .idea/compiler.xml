@@ -17,7 +17,7 @@
         <module name="mongo-test" />
         <module name="mysql-test" />
         <module name="oracle-test" />
-        <module name="SecKill" />
+        <module name="rabbitmq-test" />
         <module name="word-count" />
       </profile>
     </annotationProcessing>
@@ -34,6 +34,7 @@
       <module name="mongo-test" target="8" />
       <module name="mysql-test" target="8" />
       <module name="oracle-test" target="1.5" />
+      <module name="rabbitmq-test" target="1.5" />
       <module name="SecKill" target="1.5" />
       <module name="word-count" target="8" />
     </bytecodeTargetLevel>

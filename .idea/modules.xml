@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SecKill/SecKill.iml" filepath="$PROJECT_DIR$/SecKill/SecKill.iml" />
       <module fileurl="file://$PROJECT_DIR$/api-test/api-test.iml" filepath="$PROJECT_DIR$/api-test/api-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/canal-test/canal-test.iml" filepath="$PROJECT_DIR$/canal-test/canal-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/dup-test/dup-test.iml" filepath="$PROJECT_DIR$/dup-test/dup-test.iml" />
@@ -16,7 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/mongo-test/mongo-test.iml" filepath="$PROJECT_DIR$/mongo-test/mongo-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/mysql-test/mysql-test.iml" filepath="$PROJECT_DIR$/mysql-test/mysql-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/oracle-test/oracle-test.iml" filepath="$PROJECT_DIR$/oracle-test/oracle-test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rabbitmq-test/rabbitmq-test.iml" filepath="$PROJECT_DIR$/rabbitmq-test/rabbitmq-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/word-count/word-count.iml" filepath="$PROJECT_DIR$/word-count/word-count.iml" />
     </modules>
   </component>
