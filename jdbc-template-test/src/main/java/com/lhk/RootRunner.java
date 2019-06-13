@@ -11,7 +11,7 @@ import java.util.*;
 
 public class RootRunner {
     public static void main(String[] args) {
-        
+
 
         TableOperation tableOperation = new TableOperation();
         tableOperation.setSyncDatetimeFiled("to_char(b,'')");
@@ -29,14 +29,10 @@ public class RootRunner {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDriverClassName("oracle.jdbc.OracleDriver");
-        hikariConfig.setJdbcUrl("jdbc:oracle:thin:@192.168.11.88:1521:orcl");
-        hikariConfig.setUsername("grcloud");
-        hikariConfig.setPassword("741UaZJh1yK26h9JgR*I");
-//        hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
-//        hikariConfig.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/deepq_tag?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true");
-//        hikariConfig.setUsername("root");
-//        hikariConfig.setPassword("password1!");
+        hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
+        hikariConfig.setJdbcUrl("jdbc:mysql://47.96.3.207:3306/NEWS_FEED?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8");
+        hikariConfig.setUsername("canal");
+        hikariConfig.setPassword("ui#xctk!mzOc$aOC");
         jdbcTemplate.setDataSource(new HikariDataSource(hikariConfig));
 //        jdbcTemplate.batchUpdate("insert into test_all_type(a,b,c) values(?,?,?)", new BatchPreparedStatementSetter() {
 //            @Override
@@ -51,7 +47,11 @@ public class RootRunner {
 //                return 1;
 //            }
 //        });
-        List<Map<String, Object>> allTypeMapList = jdbcTemplate.queryForList("select * from test_all_type");
+//        jdbcTemplate.queryForList("", Map.class);
+        String sql = "SELECT id, name, columnId, orders FROM lian_subject_category WHERE id IN (SELECT subject_category_id FROM " +
+                " lian_subject_category_assoc WHERE subject_id IN ( SELECT subject_id FROM lian_subject_article_assoc " +
+                " WHERE article_id = '329073' AND is_del = 0 )AND is_del = 0 ) AND is_del = 0 ";
+        List<Map<String, Object>> allTypeMapList = jdbcTemplate.queryForList(sql);
         Map<String, Object> testMap = new LinkedHashMap<>();
         testMap.put("a", "3");
         testMap.put("b", "2019-02-01 00:00:00");
@@ -89,7 +89,7 @@ public class RootRunner {
             allTypeMapList.forEach(allTypeMap -> deleteDateSet.add("%" + allTypeMap.get(tableOperation.getSyncDatetimeFiled())
                     .toString().split(" ")[0] + "%"));
             List<String> deleteDateList = new ArrayList<>(deleteDateSet);
-            String sql = "delete from " + tableOperation.getTableName() + " where " + tableOperation.getSyncDatetimeFiled() + " like ?";
+            sql = "delete from " + tableOperation.getTableName() + " where " + tableOperation.getSyncDatetimeFiled() + " like ?";
             batchDeleteOperation(jdbcTemplate, deleteDateList, sql);
         } else {
             updateIndexGroup = batchOperation(jdbcTemplate, allTypeMapList, updateSql, syncFiledList);
